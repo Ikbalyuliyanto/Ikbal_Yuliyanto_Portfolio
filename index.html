@@ -15,7 +15,7 @@
         <a href="#portofolio" class="nav-link">Portofolio</a>
         <a href="#tentang" class="nav-link">Tentang</a>
         <a href="#kontak" class="nav-link">Kontak</a>
-        <button class="btn-download" onclick="downloadPDF()">Download / Print CV</button>
+        <button class="btn-download" onclick="downloadAllProjectsPDF()">Download PDF Semua Aplikasi</button>
       </nav>
     </div>
   </header>
@@ -23,7 +23,7 @@
   <section class="hero">
     <p class="eyebrow">Full-Stack / Backend Developer</p>
     <h1>Portofolio Aplikasi<br>Ikbal Yuliyanto</h1>
-    <p>Contoh portofolio dengan detail project. Ketika kartu diklik, akan muncul popup berisi gambar dummy, keterangan gambar, fitur utama, stack teknologi, dan tombol website.</p>
+    <p>Contoh portofolio dengan detail project. Ketika kartu diklik, muncul popup berisi gambar dummy dan keterangan. Tombol download PDF akan membuat laporan detail semua aplikasi.</p>
     <div class="hero-stats">
       <div class="stat"><span class="stat-num">9</span><span class="stat-label">Total Aplikasi</span></div>
       <div class="stat"><span class="stat-num">5</span><span class="stat-label">Kategori</span></div>
@@ -224,6 +224,7 @@
           </div>
           <div class="modal-actions">
             <a class="btn-primary" id="modal-open-link" href="#" target="_blank" rel="noopener">Buka Website</a>
+            <button class="btn-secondary" id="modal-pdf-button" type="button">Download PDF Project</button>
             <button class="btn-secondary" type="button" onclick="closeModal()">Tutup Detail</button>
           </div>
         </aside>
@@ -231,6 +232,9 @@
     </div>
   </section>
 </div>
+
+<!-- Area khusus untuk print/download PDF. Akan diisi otomatis dari assets/js/app.js -->
+<div id="print-report" aria-hidden="true"></div>
 
 <script src="assets/js/app.js"></script>
 </body>

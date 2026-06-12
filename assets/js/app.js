@@ -92,6 +92,16 @@ const PROJECTS = [
         "src": "assets/images/quilvian-system/quilvian-pharmacy.svg",
         "title": "Farmasi",
         "caption": "Pengelolaan resep, stok obat, dan transaksi farmasi."
+      },
+      {
+        "src": "assets/images/quilvian-system/quilvian-billing.svg",
+        "title": "Billing & Kasir",
+        "caption": "Modul kasir dan billing untuk pembayaran layanan pasien."
+      },
+      {
+        "src": "assets/images/quilvian-system/quilvian-kiosk.svg",
+        "title": "Kiosk & Hardware",
+        "caption": "Integrasi kiosk, scanner, printer, dan perangkat operasional rumah sakit."
       }
     ]
   },
@@ -130,6 +140,16 @@ const PROJECTS = [
         "src": "assets/images/purchasing-system/purchasing-invoice.svg",
         "title": "Invoice Verification",
         "caption": "Pemeriksaan penerimaan barang dan verifikasi invoice."
+      },
+      {
+        "src": "assets/images/purchasing-system/purchasing-po.svg",
+        "title": "Purchase Order",
+        "caption": "Pembuatan purchase order berdasarkan request dan approval."
+      },
+      {
+        "src": "assets/images/purchasing-system/purchasing-delivery.svg",
+        "title": "Penerimaan Barang",
+        "caption": "Pencatatan pengiriman, penerimaan barang, dan pemeriksaan stok."
       }
     ]
   },
@@ -166,6 +186,16 @@ const PROJECTS = [
         "src": "assets/images/blood-pressure-app/blood-pressure-integration.svg",
         "title": "Huawei Integration",
         "caption": "Integrasi dengan Huawei Health Kit dan smartwatch."
+      },
+      {
+        "src": "assets/images/blood-pressure-app/blood-pressure-reminder.svg",
+        "title": "Reminder Pemeriksaan",
+        "caption": "Pengingat pemeriksaan rutin dan notifikasi kesehatan pasien."
+      },
+      {
+        "src": "assets/images/blood-pressure-app/blood-pressure-report.svg",
+        "title": "Laporan Kesehatan",
+        "caption": "Laporan ringkas hasil pengukuran untuk pemantauan dokter atau pasien."
       }
     ]
   },
@@ -206,6 +236,16 @@ const PROJECTS = [
         "src": "assets/images/myklinik-solvus/myklinik-pos-printer.svg",
         "title": "Printer POS",
         "caption": "Integrasi printer POS dan WhatsApp Bot."
+      },
+      {
+        "src": "assets/images/myklinik-solvus/myklinik-whatsapp.svg",
+        "title": "WhatsApp Bot",
+        "caption": "Notifikasi dan komunikasi pasien melalui WhatsApp Bot."
+      },
+      {
+        "src": "assets/images/myklinik-solvus/myklinik-report.svg",
+        "title": "Laporan Klinik",
+        "caption": "Laporan operasional klinik, kunjungan, layanan, dan transaksi."
       }
     ]
   },
@@ -243,6 +283,16 @@ const PROJECTS = [
         "src": "assets/images/saloka-park/saloka-maintenance.svg",
         "title": "Maintenance",
         "caption": "Pengembangan dan maintenance sistem web."
+      },
+      {
+        "src": "assets/images/saloka-park/saloka-ticketing.svg",
+        "title": "Ticketing Web",
+        "caption": "Modul ticketing dan sinkronisasi data operasional theme park."
+      },
+      {
+        "src": "assets/images/saloka-park/saloka-report.svg",
+        "title": "Laporan Operasional",
+        "caption": "Laporan harian untuk monitoring aktivitas dan transaksi."
       }
     ]
   },
@@ -281,6 +331,16 @@ const PROJECTS = [
         "src": "assets/images/gate-entry-system/gate-entry-monitoring.svg",
         "title": "Monitoring",
         "caption": "Monitoring transaksi dan akses harian."
+      },
+      {
+        "src": "assets/images/gate-entry-system/gate-entry-kiosk.svg",
+        "title": "Kiosk Entry",
+        "caption": "Kiosk untuk proses scan tiket dan akses masuk pengunjung."
+      },
+      {
+        "src": "assets/images/gate-entry-system/gate-entry-report.svg",
+        "title": "Access Report",
+        "caption": "Laporan akses harian, jumlah pengunjung, dan status validasi tiket."
       }
     ]
   },
@@ -321,6 +381,16 @@ const PROJECTS = [
         "src": "assets/images/pos-inventory-system/pos-inventory-stock.svg",
         "title": "Inventory",
         "caption": "Pemantauan stok dan pergerakan barang."
+      },
+      {
+        "src": "assets/images/pos-inventory-system/pos-inventory-cashdrawer.svg",
+        "title": "Cash Drawer",
+        "caption": "Integrasi cash drawer dan printer kasir."
+      },
+      {
+        "src": "assets/images/pos-inventory-system/pos-inventory-report.svg",
+        "title": "Laporan Penjualan",
+        "caption": "Laporan penjualan, stok, dan rekap transaksi operasional."
       }
     ]
   },
@@ -359,6 +429,16 @@ const PROJECTS = [
         "src": "assets/images/freelance-system-suite/freelance-suite-school.svg",
         "title": "School Registration",
         "caption": "Sistem pendaftaran sekolah dan administrasi."
+      },
+      {
+        "src": "assets/images/freelance-system-suite/freelance-suite-agriculture.svg",
+        "title": "Agriculture App",
+        "caption": "Aplikasi pertanian untuk pencatatan data dan monitoring aktivitas."
+      },
+      {
+        "src": "assets/images/freelance-system-suite/freelance-suite-deployment.svg",
+        "title": "Server Deployment",
+        "caption": "Deployment aplikasi di server Linux/CentOS untuk kebutuhan production."
       }
     ]
   }
@@ -398,10 +478,14 @@ const modalThumbs = document.getElementById('modal-thumbs');
 const modalFeatures = document.getElementById('modal-features');
 const modalStack = document.getElementById('modal-stack');
 const modalOpenLink = document.getElementById('modal-open-link');
+const modalPdfButton = document.getElementById('modal-pdf-button');
+const printReport = document.getElementById('print-report');
+let currentProjectId = null;
 
 function openProject(id) {
   const project = PROJECTS.find(item => item.id === id);
   if (!project) return;
+  currentProjectId = id;
 
   modalKicker.textContent = project.category;
   modalTitle.textContent = project.title;
@@ -445,10 +529,104 @@ function closeModal() {
 cards.forEach(card => card.addEventListener('click', () => openProject(card.dataset.project)));
 modalClose.addEventListener('click', closeModal);
 modalBackdrop.addEventListener('click', closeModal);
+modalPdfButton.addEventListener('click', () => downloadProjectPDF(currentProjectId));
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeModal();
 });
 
+function escapeHTML(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+function buildProjectReport(project) {
+  const maxImages = 5;
+  const selectedImages = project.images.slice(0, maxImages);
+  const stack = project.stack.map(item => `<span class="report-chip">${escapeHTML(item)}</span>`).join('');
+  const shots = selectedImages.map((image, index) => `
+    <article class="report-shot">
+      <img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.title)}">
+      <div class="report-shot-body">
+        <div class="report-shot-label">Foto ${index + 1}</div>
+        <h3 class="report-shot-title">${escapeHTML(image.title)}</h3>
+        <p class="report-shot-caption">${escapeHTML(image.caption)}</p>
+      </div>
+    </article>
+  `).join('');
+
+  return `
+    <section class="report-page">
+      <header class="report-header">
+        <div class="report-category">${escapeHTML(project.category)}</div>
+        <h1 class="report-title">Judul Aplikasi: ${escapeHTML(project.title)}</h1>
+        <p class="report-description">${escapeHTML(project.description)}</p>
+        <div class="report-meta">${stack}</div>
+        <div class="report-note">PDF ini menampilkan maksimal ${maxImages} foto beserta keterangan agar halaman tetap rapi dan mudah dibaca.</div>
+      </header>
+      <h2 class="report-section-title">Foto dan Keterangan</h2>
+      ${shots}
+      <footer class="report-footer">Portofolio Ikbal Yuliyanto - ${escapeHTML(project.title)}</footer>
+    </section>
+  `;
+}
+
+function startPrintReport(html) {
+  printReport.innerHTML = html;
+  document.body.classList.add('printing-project');
+
+  // Beri waktu sebentar agar gambar lokal selesai dirender sebelum print dialog muncul.
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => document.body.classList.remove('printing-project'), 700);
+  }, 250);
+}
+
+function downloadProjectPDF(projectId = 'ashanum') {
+  const project = PROJECTS.find(item => item.id === projectId) || PROJECTS.find(item => item.id === 'ashanum');
+  if (!project) return;
+  startPrintReport(buildProjectReport(project));
+}
+
+function buildAllProjectsReport() {
+  const grouped = PROJECTS.reduce((acc, project) => {
+    if (!acc[project.category]) acc[project.category] = [];
+    acc[project.category].push(project);
+    return acc;
+  }, {});
+
+  const cover = `
+    <section class="report-page report-cover-page">
+      <header class="report-header">
+        <div class="report-category">Portofolio Aplikasi</div>
+        <h1 class="report-title">Ikbal Yuliyanto</h1>
+        <p class="report-description">Dokumen ini berisi detail semua aplikasi. Setiap aplikasi menampilkan kategori, judul aplikasi, foto dummy, dan keterangan gambar.</p>
+        <div class="report-note">Format: kategori aplikasi, judul aplikasi, lalu maksimal 5 foto dan keterangan untuk setiap aplikasi.</div>
+      </header>
+      <h2 class="report-section-title">Daftar Aplikasi</h2>
+      <div class="report-toc">
+        ${Object.entries(grouped).map(([category, items]) => `
+          <div class="report-toc-group">
+            <strong>${escapeHTML(category)}</strong>
+            <ul>${items.map(item => `<li>${escapeHTML(item.title)} - ${escapeHTML(item.subtitle)}</li>`).join('')}</ul>
+          </div>
+        `).join('')}
+      </div>
+      <footer class="report-footer">Portofolio Ikbal Yuliyanto - Semua aplikasi</footer>
+    </section>
+  `;
+
+  return cover + PROJECTS.map(project => buildProjectReport(project)).join('');
+}
+
+function downloadAllProjectsPDF() {
+  startPrintReport(buildAllProjectsReport());
+}
+
+// Kompatibilitas dengan tombol lama jika masih dipanggil dari HTML lain.
 function downloadPDF() {
-  window.print();
+  downloadAllProjectsPDF();
 }
