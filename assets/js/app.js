@@ -24,32 +24,32 @@ const PROJECTS = [
     "url": "https://ashanum.com",
     "images": [
       {
-        "src": "assets/images/ashanum-homepage.svg",
+        "src": "assets/images/ashanum/ashanum-homepage.svg",
         "title": "Homepage",
         "caption": "Landing page toko online dengan banner, kategori, dan produk unggulan."
       },
       {
-        "src": "assets/images/ashanum-catalog.svg",
+        "src": "assets/images/ashanum/ashanum-catalog.svg",
         "title": "Katalog Produk",
         "caption": "Halaman daftar produk dengan filter, pencarian, harga, dan stok."
       },
       {
-        "src": "assets/images/ashanum-product-detail.svg",
+        "src": "assets/images/ashanum/ashanum-product-detail.svg",
         "title": "Detail Produk",
         "caption": "Halaman detail produk berisi foto, deskripsi, varian, dan tombol tambah keranjang."
       },
       {
-        "src": "assets/images/ashanum-checkout.svg",
+        "src": "assets/images/ashanum/ashanum-checkout.svg",
         "title": "Checkout",
         "caption": "Flow checkout dengan alamat, ringkasan belanja, ongkir, dan pilihan pembayaran."
       },
       {
-        "src": "assets/images/ashanum-payment.svg",
+        "src": "assets/images/ashanum/ashanum-payment.svg",
         "title": "Pembayaran Midtrans",
         "caption": "Integrasi payment gateway untuk transaksi production."
       },
       {
-        "src": "assets/images/ashanum-admin-order.svg",
+        "src": "assets/images/ashanum/ashanum-admin-order.svg",
         "title": "Dashboard Pesanan",
         "caption": "Panel admin untuk memantau pesanan, status pembayaran, dan pengiriman."
       }
@@ -79,17 +79,17 @@ const PROJECTS = [
     "url": "#",
     "images": [
       {
-        "src": "assets/images/quilvian-dashboard.svg",
+        "src": "assets/images/quilvian-system/quilvian-dashboard.svg",
         "title": "Dashboard HMS",
         "caption": "Ringkasan operasional rumah sakit untuk kunjungan, layanan, dan billing."
       },
       {
-        "src": "assets/images/quilvian-registration.svg",
+        "src": "assets/images/quilvian-system/quilvian-registration.svg",
         "title": "Pendaftaran Pasien",
         "caption": "Modul pendaftaran pasien dan alur kunjungan."
       },
       {
-        "src": "assets/images/quilvian-pharmacy.svg",
+        "src": "assets/images/quilvian-system/quilvian-pharmacy.svg",
         "title": "Farmasi",
         "caption": "Pengelolaan resep, stok obat, dan transaksi farmasi."
       }
@@ -117,17 +117,17 @@ const PROJECTS = [
     "url": "#",
     "images": [
       {
-        "src": "assets/images/purchasing-request.svg",
+        "src": "assets/images/purchasing-system/purchasing-request.svg",
         "title": "Permintaan Pembelian",
         "caption": "Flow permintaan barang dari user internal."
       },
       {
-        "src": "assets/images/purchasing-approval.svg",
+        "src": "assets/images/purchasing-system/purchasing-approval.svg",
         "title": "Approval",
         "caption": "Alur approval bertingkat termasuk notifikasi WhatsApp Bot."
       },
       {
-        "src": "assets/images/purchasing-invoice.svg",
+        "src": "assets/images/purchasing-system/purchasing-invoice.svg",
         "title": "Invoice Verification",
         "caption": "Pemeriksaan penerimaan barang dan verifikasi invoice."
       }
@@ -153,17 +153,17 @@ const PROJECTS = [
     "url": "#",
     "images": [
       {
-        "src": "assets/images/blood-pressure-mobile-home.svg",
+        "src": "assets/images/blood-pressure-app/blood-pressure-mobile-home.svg",
         "title": "Mobile Dashboard",
         "caption": "Ringkasan hasil pengukuran tekanan darah di Android."
       },
       {
-        "src": "assets/images/blood-pressure-history.svg",
+        "src": "assets/images/blood-pressure-app/blood-pressure-history.svg",
         "title": "Riwayat Pengukuran",
         "caption": "Riwayat tekanan darah dan grafik perkembangan pasien."
       },
       {
-        "src": "assets/images/blood-pressure-integration.svg",
+        "src": "assets/images/blood-pressure-app/blood-pressure-integration.svg",
         "title": "Huawei Integration",
         "caption": "Integrasi dengan Huawei Health Kit dan smartwatch."
       }
@@ -193,17 +193,17 @@ const PROJECTS = [
     "url": "#",
     "images": [
       {
-        "src": "assets/images/myklinik-clinic.svg",
+        "src": "assets/images/myklinik-solvus/myklinik-clinic.svg",
         "title": "Clinic Management",
         "caption": "Modul klinik untuk pendaftaran, layanan, dan rekam medis."
       },
       {
-        "src": "assets/images/myklinik-bpjs.svg",
+        "src": "assets/images/myklinik-solvus/myklinik-bpjs.svg",
         "title": "BPJS & SATUSEHAT",
         "caption": "Bridging integrasi BPJS dan SATUSEHAT."
       },
       {
-        "src": "assets/images/myklinik-pos-printer.svg",
+        "src": "assets/images/myklinik-solvus/myklinik-pos-printer.svg",
         "title": "Printer POS",
         "caption": "Integrasi printer POS dan WhatsApp Bot."
       }
@@ -230,17 +230,17 @@ const PROJECTS = [
     "url": "#",
     "images": [
       {
-        "src": "assets/images/saloka-ops.svg",
+        "src": "assets/images/saloka-park/saloka-ops.svg",
         "title": "Operational Dashboard",
         "caption": "Dashboard operasional theme park."
       },
       {
-        "src": "assets/images/saloka-flow.svg",
+        "src": "assets/images/saloka-park/saloka-flow.svg",
         "title": "User Flow",
         "caption": "Flowchart user dan integrasi data antar sistem."
       },
       {
-        "src": "assets/images/saloka-maintenance.svg",
+        "src": "assets/images/saloka-park/saloka-maintenance.svg",
         "title": "Maintenance",
         "caption": "Pengembangan dan maintenance sistem web."
       }
@@ -268,17 +268,17 @@ const PROJECTS = [
     "url": "#",
     "images": [
       {
-        "src": "assets/images/gate-entry-ticket.svg",
+        "src": "assets/images/gate-entry-system/gate-entry-ticket.svg",
         "title": "Validasi Tiket",
         "caption": "Validasi tiket pengunjung di pintu masuk."
       },
       {
-        "src": "assets/images/gate-entry-gate.svg",
+        "src": "assets/images/gate-entry-system/gate-entry-gate.svg",
         "title": "Access Gate",
         "caption": "Integrasi perangkat gate dan kiosk."
       },
       {
-        "src": "assets/images/gate-entry-monitoring.svg",
+        "src": "assets/images/gate-entry-system/gate-entry-monitoring.svg",
         "title": "Monitoring",
         "caption": "Monitoring transaksi dan akses harian."
       }
@@ -308,17 +308,17 @@ const PROJECTS = [
     "url": "#",
     "images": [
       {
-        "src": "assets/images/pos-inventory-cashier.svg",
+        "src": "assets/images/pos-inventory-system/pos-inventory-cashier.svg",
         "title": "Kasir",
         "caption": "Transaksi kasir dan pembayaran."
       },
       {
-        "src": "assets/images/pos-inventory-kitchen.svg",
+        "src": "assets/images/pos-inventory-system/pos-inventory-kitchen.svg",
         "title": "Kitchen Printer",
         "caption": "Cetak order ke printer kitchen via IP TCP/IP."
       },
       {
-        "src": "assets/images/pos-inventory-stock.svg",
+        "src": "assets/images/pos-inventory-system/pos-inventory-stock.svg",
         "title": "Inventory",
         "caption": "Pemantauan stok dan pergerakan barang."
       }
@@ -346,17 +346,17 @@ const PROJECTS = [
     "url": "#",
     "images": [
       {
-        "src": "assets/images/freelance-suite-recruitment.svg",
+        "src": "assets/images/freelance-system-suite/freelance-suite-recruitment.svg",
         "title": "Recruitment System",
         "caption": "Sistem rekrutmen dan manajemen kandidat."
       },
       {
-        "src": "assets/images/freelance-suite-hotel.svg",
+        "src": "assets/images/freelance-system-suite/freelance-suite-hotel.svg",
         "title": "Hotel System",
         "caption": "Modul pemesanan dan operasional hotel."
       },
       {
-        "src": "assets/images/freelance-suite-school.svg",
+        "src": "assets/images/freelance-system-suite/freelance-suite-school.svg",
         "title": "School Registration",
         "caption": "Sistem pendaftaran sekolah dan administrasi."
       }
