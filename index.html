@@ -1,249 +1,92 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portofolio — Ikbal Yuliyanto</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-<div class="container">
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="site-logo" href="#">Ikbal Yuliyanto</a>
-      <nav class="site-nav">
-        <a href="#portofolio" class="nav-link">Portofolio</a>
-        <a href="#tentang" class="nav-link">Tentang</a>
-        <a href="#kontak" class="nav-link">Kontak</a>
-        <button class="btn-download" onclick="downloadAllProjectsPDF()">Download PDF Semua Aplikasi</button>
-      </nav>
-    </div>
-  </header>
+  <div class="container">
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="#" class="site-logo">Ikbal Yuliyanto</a>
+        <nav class="site-nav">
+          <a href="#portofolio" class="nav-link">Portofolio</a>
+          <a href="#tentang" class="nav-link">Tentang</a>
+          <a href="#kontak" class="nav-link">Kontak</a>
+          <button class="btn-download" id="btn-pdf-all" type="button" onclick="downloadAllProjectsPDF()">
+            Download PDF Semua Aplikasi
+          </button>
+        </nav>
+      </div>
+    </header>
 
-  <section class="hero">
-    <p class="eyebrow">Full-Stack / Backend Developer</p>
-    <h1>Portofolio Aplikasi<br>Ikbal Yuliyanto</h1>
-    <p>Contoh portofolio dengan detail project. Ketika kartu diklik, muncul popup berisi gambar dummy dan keterangan. Tombol download PDF akan membuat laporan detail semua aplikasi.</p>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-num">9</span><span class="stat-label">Total Aplikasi</span></div>
-      <div class="stat"><span class="stat-num">5</span><span class="stat-label">Kategori</span></div>
-      <div class="stat"><span class="stat-num" style="font-size:18px">Detail Modal</span><span class="stat-label">Interaktif</span></div>
-    </div>
-  </section>
+    <section class="hero">
+      <p class="eyebrow">Full-Stack / Backend Developer</p>
+      <h1>Portofolio Aplikasi<br />Ikbal Yuliyanto</h1>
+      <p>Developer 7+ tahun yang membangun sistem enterprise, rumah sakit, POS, ticketing, inventory, e-commerce, integrasi hardware, dan deployment production berbasis VPS Linux, Docker, Nginx, serta CI/CD.</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num" id="total-count">0</span><span class="stat-label">Total Aplikasi</span></div>
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label">Kategori</span></div>
+        <div class="stat"><span class="stat-num small">2024–Sekarang</span><span class="stat-label">Terbaru</span></div>
+      </div>
+    </section>
 
-  <div class="filter-section" id="portofolio">
-    <div class="filter-pills">
-      <button class="pill active" data-filter="all">Semua</button>
-      <button class="pill" data-filter="e-commerce">E-Commerce</button>
-      <button class="pill" data-filter="rumah-sakit">Rumah Sakit</button>
-      <button class="pill" data-filter="theme-park">Theme Park</button>
-      <button class="pill" data-filter="mobile">Mobile</button>
-      <button class="pill" data-filter="freelance">Freelance</button>
-    </div>
-    <span class="result-count" id="count-label">9 aplikasi</span>
+    <section class="filter-section" id="portofolio">
+      <div class="filter-pills" id="filter-pills"></div>
+      <span class="result-count" id="count-label">0 aplikasi</span>
+    </section>
+
+    <main>
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="empty-state" id="empty-state">Tidak ada aplikasi dalam kategori ini.</div>
+    </main>
+
+    <hr class="section-divider" id="tentang" />
+    <section class="tentang-section">
+      <p class="section-eyebrow">Tentang</p>
+      <div class="tentang-grid">
+        <div class="tentang-left">
+          <h2>Full-Stack & Backend Developer dengan pengalaman 7+ tahun</h2>
+          <p>Saya membangun sistem enterprise dari nol hingga production — mulai dari sistem rumah sakit, POS, ticketing, inventory, hingga e-commerce. Terbiasa mengelola lifecycle dari desain arsitektur, pengembangan backend & frontend, integrasi hardware, hingga deployment mandiri di VPS Linux.</p>
+          <p>Saat ini aktif membangun QuilvianSystem dan sistem enterprise lain. Saya juga mengelola Ashanum.com, platform e-commerce production mandiri.</p>
+        </div>
+        <div class="skills-col">
+          <h3>Keahlian Teknis</h3>
+          <div class="skill-group"><div class="skill-label">Backend</div><div class="skill-tags"><span>Node.js</span><span>Express.js</span><span>PHP</span><span>Laravel</span><span>ASP.NET Core</span><span>Python</span><span>REST API</span></div></div>
+          <div class="skill-group"><div class="skill-label">Database</div><div class="skill-tags"><span>PostgreSQL</span><span>MySQL</span><span>SQL Server</span></div></div>
+          <div class="skill-group"><div class="skill-label">DevOps</div><div class="skill-tags"><span>Linux VPS</span><span>Docker</span><span>Nginx</span><span>GitHub Actions</span><span>CI/CD</span></div></div>
+          <div class="skill-group"><div class="skill-label">Frontend</div><div class="skill-tags"><span>Next.js</span><span>JavaScript</span><span>HTML/CSS</span><span>Bootstrap</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" id="kontak" />
+    <section class="kontak-section">
+      <p class="section-eyebrow">Kontak</p>
+      <div class="kontak-grid">
+        <a class="kontak-card" href="mailto:ikbaly94@gmail.com"><div class="kontak-label">Email</div><div class="kontak-value">ikbaly94@gmail.com</div></a>
+        <a class="kontak-card" href="tel:+6289536332562"><div class="kontak-label">Telepon</div><div class="kontak-value">0895-3633-25620</div></a>
+        <a class="kontak-card" href="https://ashanum.com" target="_blank" rel="noopener"><div class="kontak-label">Website</div><div class="kontak-value">ashanum.com</div></a>
+        <a class="kontak-card" href="https://linkedin.com/in/ikbal-yuliyanto" target="_blank" rel="noopener"><div class="kontak-label">LinkedIn</div><div class="kontak-value">ikbal-yuliyanto</div></a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p>© 2026 Ikbal Yuliyanto. Portofolio aplikasi.</p>
+      <p>ikbaly94@gmail.com · 0895-3633-25620</p>
+    </footer>
   </div>
 
-  <main id="pdf-content">
-    <div class="gallery-grid" id="gallery-grid">
-
-      <button class="card" type="button" data-cat="e-commerce" data-project="ashanum">
-        <div class="card-img-wrap">
-          <img src="assets/images/ashanum/ashanum-cover.svg" alt="Ashanum.com">
-          <span class="card-badge">Lihat Detail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">E-Commerce</div>
-          <div class="card-title">Ashanum.com — E-Commerce Platform</div>
-          <div class="card-desc">Platform e-commerce production mandiri dengan pembayaran Midtrans, manajemen produk, pesanan, VPS Linux, Docker, Nginx, SSL, dan domain sendiri.</div>
-          <span class="card-link">Klik untuk lihat gambar & keterangan</span>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-cat="rumah-sakit" data-project="quilvian">
-        <div class="card-img-wrap">
-          <img src="assets/images/quilvian-system/quilvian-cover.svg" alt="QuilvianSystem">
-          <span class="card-badge">Lihat Detail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Healthcare</div>
-          <div class="card-title">QuilvianSystem — Hospital Management System</div>
-          <div class="card-desc">Platform operasional rumah sakit untuk pendaftaran, rekam medis, antrean, kasir, farmasi, accounting, HRD, kiosk, dan integrasi hardware.</div>
-          <span class="card-link">Klik untuk lihat gambar & keterangan</span>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-cat="rumah-sakit" data-project="purchasing">
-        <div class="card-img-wrap">
-          <img src="assets/images/purchasing-system/purchasing-cover.svg" alt="Purchasing System">
-          <span class="card-badge">Lihat Detail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Enterprise</div>
-          <div class="card-title">Purchasing System — End-to-End Procurement</div>
-          <div class="card-desc">Sistem purchasing dari permintaan, approval, pembelian, pengiriman, penerimaan, verifikasi invoice, hingga approval WhatsApp Bot.</div>
-          <span class="card-link">Klik untuk lihat gambar & keterangan</span>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-cat="mobile" data-project="blood-pressure">
-        <div class="card-img-wrap">
-          <img src="assets/images/blood-pressure-app/blood-pressure-cover.svg" alt="Blood Pressure App">
-          <span class="card-badge">Lihat Detail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Mobile</div>
-          <div class="card-title">Blood Pressure App — Android Health App</div>
-          <div class="card-desc">Aplikasi Android untuk pemantauan tekanan darah terintegrasi smartwatch Huawei dan ekosistem aplikasi rumah sakit.</div>
-          <span class="card-link">Klik untuk lihat gambar & keterangan</span>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-cat="rumah-sakit" data-project="myklinik">
-        <div class="card-img-wrap">
-          <img src="assets/images/myklinik-solvus/myklinik-cover.svg" alt="MyKlinik &amp; Solvus">
-          <span class="card-badge">Lihat Detail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Healthcare</div>
-          <div class="card-title">MyKlinik &amp; Solvus — Clinic &amp; Hospital Management</div>
-          <div class="card-desc">Sistem manajemen klinik dan rumah sakit dengan printer POS, WhatsApp Bot, SATUSEHAT, dan BPJS.</div>
-          <span class="card-link">Klik untuk lihat gambar & keterangan</span>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-cat="theme-park" data-project="saloka">
-        <div class="card-img-wrap">
-          <img src="assets/images/saloka-park/saloka-cover.svg" alt="SalokaPark v2">
-          <span class="card-badge">Lihat Detail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Theme Park</div>
-          <div class="card-title">SalokaPark v2 — Theme Park Web System</div>
-          <div class="card-desc">Aplikasi web untuk operasional theme park, frontend, backend, flowchart user, maintenance, dan integrasi data.</div>
-          <span class="card-link">Klik untuk lihat gambar & keterangan</span>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-cat="theme-park" data-project="gate-entry">
-        <div class="card-img-wrap">
-          <img src="assets/images/gate-entry-system/gate-entry-cover.svg" alt="Gate Entry System">
-          <span class="card-badge">Lihat Detail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Ticketing</div>
-          <div class="card-title">Gate Entry System — Ticketing &amp; Access Gate</div>
-          <div class="card-desc">Sistem ticketing dan gate entry untuk validasi akses pengunjung, integrasi perangkat gate, kiosk, dan monitoring harian.</div>
-          <span class="card-link">Klik untuk lihat gambar & keterangan</span>
-        </div>
-      </button>
-
-      <button class="card" type="button" data-cat="theme-park" data-project="pos-inventory">
-        <div class="card-img-wrap">
-          <img src="assets/images/pos-inventory-system/pos-inventory-cover.svg" alt="POS &amp; Inventory">
-          <span class="card-badge">Lihat Detail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">POS</div>
-          <div class="card-title">POS &amp; Inventory — Cashier, Kitchen &amp; Stock</div>
-          <div class="card-desc">Sistem kasir dan inventory dengan printer POS berbasis IP TCP/IP untuk kasir dan kitchen, cash drawer, serta stock control.</div>
-          <span class="card-link">Klik untuk lihat gambar & keterangan</span>
-        </div>
-      </button>
-      
-      <button class="card" type="button" data-cat="freelance" data-project="freelance-suite">
-        <div class="card-img-wrap">
-          <img src="assets/images/freelance-system-suite/freelance-suite-cover.svg" alt="Freelance Suite">
-          <span class="card-badge">Lihat Detail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Freelance</div>
-          <div class="card-title">Freelance Suite — Multi Project Web Apps</div>
-          <div class="card-desc">Kumpulan aplikasi freelance seperti sistem rekrutmen, hotel, pertanian, surat, sekolah, dan deployment CentOS 7.</div>
-          <span class="card-link">Klik untuk lihat gambar & keterangan</span>
-        </div>
-      </button>
-      <div class="empty-state" id="empty-state"><p>Tidak ada aplikasi dalam kategori ini.</p></div>
+  <div class="modal-backdrop" id="project-modal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true">
+      <button class="modal-close" type="button" onclick="closeProjectModal()">×</button>
+      <div id="modal-content"></div>
     </div>
-  </main>
+  </div>
 
-  <hr class="section-divider" id="tentang">
-  <section class="tentang-section">
-    <p class="section-eyebrow">Tentang</p>
-    <div class="tentang-grid">
-      <div class="tentang-left">
-        <h2>Full-Stack & Backend Developer dengan pengalaman 7+ tahun</h2>
-        <p>Saya membangun sistem enterprise dari nol hingga production, mulai dari sistem rumah sakit, POS, ticketing, inventory, hingga e-commerce.</p>
-        <p>Contoh ini sudah memakai gambar lokal di folder <strong>assets/images/nama-aplikasi</strong>. Untuk mengganti foto dummy dengan screenshot asli, cukup ganti file gambar atau ubah path di <strong>assets/js/app.js</strong>.</p>
-      </div>
-      <div class="skills-col">
-        <p class="section-eyebrow">Keahlian Teknis</p>
-        <div class="skill-group"><div class="skill-label">Backend</div><div class="skill-tags"><span class="skill-tag">Node.js</span><span class="skill-tag">Express.js</span><span class="skill-tag">ASP.NET Core</span><span class="skill-tag">PHP</span><span class="skill-tag">Laravel</span></div></div>
-        <div class="skill-group"><div class="skill-label">Database</div><div class="skill-tags"><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span><span class="skill-tag">SQL Server</span></div></div>
-        <div class="skill-group"><div class="skill-label">DevOps</div><div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Nginx</span><span class="skill-tag">Linux VPS</span><span class="skill-tag">GitHub Actions</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="section-divider" id="kontak">
-  <section class="kontak-section">
-    <p class="section-eyebrow">Kontak</p>
-    <div class="kontak-grid">
-      <a class="kontak-card" href="mailto:ikbaly94@gmail.com"><div class="kontak-label">Email</div><div class="kontak-value">ikbaly94@gmail.com</div></a>
-      <a class="kontak-card" href="tel:+62895363325620"><div class="kontak-label">Telepon</div><div class="kontak-value">0895-3633-25620</div></a>
-      <a class="kontak-card" href="https://ashanum.com" target="_blank" rel="noopener"><div class="kontak-label">Website</div><div class="kontak-value">ashanum.com</div></a>
-      <a class="kontak-card" href="https://linkedin.com/in/ikbal-yuliyanto" target="_blank" rel="noopener"><div class="kontak-label">LinkedIn</div><div class="kontak-value">ikbal-yuliyanto</div></a>
-    </div>
-  </section>
-
-  <footer class="site-footer"><p>© 2026 Ikbal Yuliyanto. Portofolio aplikasi.</p><p>Dummy images included.</p></footer>
-</div>
-
-<div class="modal" id="project-modal" aria-hidden="true">
-  <div class="modal-backdrop" id="modal-backdrop"></div>
-  <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-header">
-      <div>
-        <div class="modal-kicker" id="modal-kicker">Kategori</div>
-        <h2 class="modal-title" id="modal-title">Judul Project</h2>
-        <p class="modal-subtitle" id="modal-subtitle">Deskripsi project.</p>
-      </div>
-      <button class="modal-close" id="modal-close" type="button" aria-label="Tutup">×</button>
-    </div>
-    <div class="modal-body">
-      <div class="detail-layout">
-        <div>
-          <div class="preview-main">
-            <img id="modal-image" src="" alt="">
-            <div class="preview-caption">
-              <strong id="modal-image-title">Judul gambar</strong>
-              <p id="modal-image-caption">Keterangan gambar</p>
-            </div>
-          </div>
-          <div class="thumbs" id="modal-thumbs"></div>
-        </div>
-        <aside>
-          <div class="info-card">
-            <h3>Fitur Utama</h3>
-            <ul id="modal-features"></ul>
-          </div>
-          <div class="info-card">
-            <h3>Stack Teknologi</h3>
-            <div class="skill-tags" id="modal-stack"></div>
-          </div>
-          <div class="modal-actions">
-            <a class="btn-primary" id="modal-open-link" href="#" target="_blank" rel="noopener">Buka Website</a>
-            <button class="btn-secondary" id="modal-pdf-button" type="button">Download PDF Project</button>
-            <button class="btn-secondary" type="button" onclick="closeModal()">Tutup Detail</button>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- Area khusus untuk print/download PDF. Akan diisi otomatis dari assets/js/app.js -->
-<div id="print-report" aria-hidden="true"></div>
-
-<script src="assets/js/app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
