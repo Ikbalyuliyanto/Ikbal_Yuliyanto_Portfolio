@@ -9,8 +9,8 @@ const PROJECTS = [
     features: ["Katalog produk dan kategori", "Detail produk", "Checkout dan status pesanan", "Pembayaran Midtrans", "Dashboard admin"],
     website: "https://ashanum.com",
     images: [
-      { src: "assets/images/ashanum/admin.png", title: "Dashboard Admin", desc: "Halaman admin untuk mengelola produk, kategori, pesanan, dan operasional e-commerce." },
       { src: "assets/images/ashanum/desktop.png", title: "Tampilan Desktop", desc: "Tampilan utama website e-commerce pada perangkat desktop." },
+      { src: "assets/images/ashanum/admin.png", title: "Dashboard Admin", desc: "Halaman admin untuk mengelola produk, kategori, pesanan, dan operasional e-commerce." },
       { src: "assets/images/ashanum/kategori.png", title: "Kategori Produk", desc: "Halaman kategori untuk memudahkan pelanggan mencari produk berdasarkan kelompok produk." },
       { src: "assets/images/ashanum/detail produk.png", title: "Detail Produk", desc: "Halaman detail produk berisi gambar, harga, deskripsi, stok, dan aksi pembelian." },
       { src: "assets/images/ashanum/checkout.png", title: "Checkout", desc: "Halaman checkout untuk pengisian data pesanan sebelum pembayaran." },
@@ -47,8 +47,8 @@ const PROJECTS = [
     features: ["Dashboard klinik", "Pendaftaran pasien", "Rawat jalan dan rawat inap", "Farmasi dan kasir", "Laporan keuangan"],
     website: "https://apps.myklinik.id/",
     images: [
-      { src: "assets/images/myklinik-solvus/dashboard.png", title: "Dashboard", desc: "Dashboard utama untuk monitoring data operasional klinik atau rumah sakit." },
       { src: "assets/images/myklinik-solvus/login (1).png", title: "Login", desc: "Halaman login sistem untuk pengguna internal." },
+      { src: "assets/images/myklinik-solvus/dashboard.png", title: "Dashboard", desc: "Dashboard utama untuk monitoring data operasional klinik atau rumah sakit." },
       { src: "assets/images/myklinik-solvus/pendaftaran.png", title: "Pendaftaran", desc: "Modul pendaftaran pasien untuk mencatat data pasien dan kunjungan." },
       { src: "assets/images/myklinik-solvus/rawat jalan.png", title: "Rawat Jalan", desc: "Modul pelayanan rawat jalan untuk proses pemeriksaan pasien." },
       { src: "assets/images/myklinik-solvus/rawat inap.png", title: "Rawat Inap", desc: "Modul rawat inap untuk pengelolaan pasien inap dan ruangan." },
