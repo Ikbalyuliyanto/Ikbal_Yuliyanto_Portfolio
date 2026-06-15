@@ -292,132 +292,294 @@ function selectProjectImage(index) {
   renderModalContent();
 }
 
+
 async function downloadAllProjectsPDF() {
-  if (typeof html2pdf === "undefined") {
-    alert("Library html2pdf belum termuat. Pastikan koneksi internet aktif atau jalankan via localhost.");
-    return;
+  const btn = document.getElementById("btn-pdf-all");
+  const oldLabel = btn ? btn.textContent : "";
+  if (btn) {
+    btn.classList.add("pdf-loading");
+    btn.textContent = "Menyiapkan PDF...";
   }
 
-  const wrapper = document.createElement("div");
-  wrapper.className = "pdf-wrapper";
-  wrapper.innerHTML = `
-    <div class="pdf-cover">
-      <h1>Portofolio Aplikasi</h1>
-      <p>Ikbal Yuliyanto — Full-Stack / Backend Developer</p>
-    </div>
-  `;
-
-  PROJECTS.forEach((project, index) => {
-    wrapper.appendChild(buildPdfProjectSection(project, index + 1));
-  });
-
-  document.body.appendChild(wrapper);
-  await waitForImages(wrapper);
-
-  html2pdf()
-    .set({
-      margin: [8, 8, 8, 8],
-      filename: "portofolio-aplikasi-ikbal-yuliyanto.pdf",
-      image: { type: "jpeg", quality: 0.95 },
-      html2canvas: { scale: 2, useCORS: true, logging: false },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      pagebreak: { mode: ["avoid-all", "css"], before: ".pdf-project" }
-    })
-    .from(wrapper)
-    .save()
-    .then(() => document.body.removeChild(wrapper))
-    .catch(error => {
-      document.body.removeChild(wrapper);
-      console.error(error);
-      alert("Gagal membuat PDF. Coba jalankan dengan Live Server/localhost.");
-    });
+  try {
+    await generatePortfolioPdf(PROJECTS, "portofolio-aplikasi-ikbal-yuliyanto.pdf", true);
+  } catch (error) {
+    console.error(error);
+    alert("Gagal membuat PDF. Pastikan file gambar sesuai path dan koneksi internet aktif untuk memuat library jsPDF.");
+  } finally {
+    if (btn) {
+      btn.classList.remove("pdf-loading");
+      btn.textContent = oldLabel || "Download PDF Semua Aplikasi";
+    }
+  }
 }
 
 async function downloadProjectPDF(projectId) {
-  if (typeof html2pdf === "undefined") {
-    alert("Library html2pdf belum termuat. Pastikan koneksi internet aktif atau jalankan via localhost.");
-    return;
-  }
-
   const project = PROJECTS.find(item => item.id === projectId);
   if (!project) return;
 
-  const wrapper = document.createElement("div");
-  wrapper.className = "pdf-wrapper";
-  wrapper.appendChild(buildPdfProjectSection(project, null));
-
-  document.body.appendChild(wrapper);
-  await waitForImages(wrapper);
-
-  html2pdf()
-    .set({
-      margin: [8, 8, 8, 8],
-      filename: `portfolio-${project.id}.pdf`,
-      image: { type: "jpeg", quality: 0.95 },
-      html2canvas: { scale: 2, useCORS: true, logging: false },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      pagebreak: { mode: ["avoid-all", "css"] }
-    })
-    .from(wrapper)
-    .save()
-    .then(() => document.body.removeChild(wrapper))
-    .catch(error => {
-      document.body.removeChild(wrapper);
-      console.error(error);
-      alert("Gagal membuat PDF. Coba jalankan dengan Live Server/localhost.");
-    });
+  try {
+    await generatePortfolioPdf([project], `portfolio-${project.id}.pdf`, false);
+  } catch (error) {
+    console.error(error);
+    alert("Gagal membuat PDF project. Pastikan file gambar sesuai path dan koneksi internet aktif untuk memuat library jsPDF.");
+  }
 }
 
-function buildPdfProjectSection(project, number) {
-  const section = document.createElement("section");
-  section.className = "pdf-project";
-  const title = number ? `${number}. ${escapeHtml(project.title)}` : escapeHtml(project.title);
+async function generatePortfolioPdf(projects, filename, includeCover) {
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    alert("Library jsPDF belum termuat. Pastikan koneksi internet aktif atau CDN tidak diblokir.");
+    return;
+  }
 
-  const imageBlocks = project.images.length
-    ? project.images.slice(0, 8).map((img, imgIndex) => `
-        <div class="pdf-image-block">
-          <img src="${img.src}" alt="${escapeHtml(img.title)}" />
-          <div class="pdf-image-caption">
-            <strong>${imgIndex + 1}. ${escapeHtml(img.title)}</strong>
-            <p>${escapeHtml(img.desc)}</p>
-          </div>
-        </div>
-      `).join("")
-    : `
-      <div class="pdf-no-image">
-        <strong>Dokumentasi visual belum tersedia</strong>
-        <p>Project ini tetap dicantumkan sebagai ringkasan pengalaman, fitur utama, dan stack teknologi.</p>
-      </div>
-    `;
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
+  const page = { width: 210, height: 297, margin: 14 };
 
-  section.innerHTML = `
-    <div class="pdf-project-header">
-      <div class="pdf-category">${escapeHtml(project.category)}</div>
-      <h2>${title}</h2>
-      <p>${escapeHtml(project.subtitle)}</p>
-    </div>
-    <div class="pdf-description"><p>${escapeHtml(project.description)}</p></div>
-    <div class="pdf-meta">
-      ${project.website ? `<h3>Website</h3><p>${escapeHtml(project.website)}</p>` : ""}
-      <h3>Fitur Utama</h3>
-      <ul>${project.features.map(feature => `<li>${escapeHtml(feature)}</li>`).join("")}</ul>
-      <h3>Stack Teknologi</h3>
-      <p>${project.stack.map(item => escapeHtml(item)).join(" · ")}</p>
-    </div>
-    <div class="pdf-images">${imageBlocks}</div>
-  `;
-  return section;
+  if (includeCover) {
+    addCoverPage(doc, projects, page);
+  } else {
+    doc.deletePage(1);
+  }
+
+  for (let i = 0; i < projects.length; i++) {
+    doc.addPage();
+    await addProjectPages(doc, projects[i], includeCover ? i + 1 : null, page);
+  }
+
+  doc.save(filename);
 }
 
-function waitForImages(root) {
-  const images = Array.from(root.querySelectorAll("img"));
-  return Promise.all(images.map(img => {
-    if (img.complete) return Promise.resolve();
-    return new Promise(resolve => {
-      img.onload = resolve;
-      img.onerror = resolve;
-    });
-  }));
+function addCoverPage(doc, projects, page) {
+  let y = 28;
+  doc.setFillColor(17, 24, 39);
+  doc.rect(0, 0, page.width, 58, "F");
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.text("Portofolio Aplikasi", page.margin, y);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10.5);
+  doc.text("Ikbal Yuliyanto — Full-Stack / Backend Developer", page.margin, y + 8);
+
+  y = 76;
+  doc.setTextColor(17, 24, 39);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.text("Ringkasan", page.margin, y);
+
+  y += 8;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(75, 85, 99);
+  const summary = `Total ${projects.length} aplikasi. Project yang memiliki screenshot ditampilkan lengkap dengan foto dan keterangan. Project tanpa foto tetap dicantumkan sebagai ringkasan pengalaman, fitur utama, stack teknologi, dan website jika tersedia.`;
+  y = addWrappedText(doc, summary, page.margin, y, page.width - page.margin * 2, 5);
+
+  y += 10;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.setTextColor(17, 24, 39);
+  doc.text("Daftar Aplikasi", page.margin, y);
+  y += 8;
+
+  projects.forEach((project, index) => {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(17, 24, 39);
+    doc.text(`${index + 1}. ${project.title}`, page.margin, y);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(107, 114, 128);
+    doc.text(project.category, page.margin + 82, y);
+    y += 7;
+  });
+
+  addFooter(doc, page);
+}
+
+async function addProjectPages(doc, project, number, page) {
+  let y = page.margin;
+  const title = number ? `${number}. ${project.title}` : project.title;
+
+  doc.setTextColor(107, 114, 128);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.text(String(project.category).toUpperCase(), page.margin, y);
+
+  y += 8;
+  doc.setTextColor(17, 24, 39);
+  doc.setFontSize(18);
+  doc.text(title, page.margin, y);
+
+  y += 7;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(107, 114, 128);
+  doc.text(project.subtitle, page.margin, y);
+
+  y += 9;
+  doc.setDrawColor(229, 231, 235);
+  doc.line(page.margin, y, page.width - page.margin, y);
+  y += 8;
+
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(55, 65, 81);
+  doc.setFontSize(9.5);
+  y = addWrappedText(doc, project.description, page.margin, y, page.width - page.margin * 2, 5);
+
+  if (project.website) {
+    y += 5;
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(17, 24, 39);
+    doc.text("Website", page.margin, y);
+    y += 5;
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(37, 99, 235);
+    y = addWrappedText(doc, project.website, page.margin, y, page.width - page.margin * 2, 5);
+  }
+
+  y += 5;
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(17, 24, 39);
+  doc.text("Fitur Utama", page.margin, y);
+  y += 5;
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(55, 65, 81);
+  for (const feature of project.features) {
+    y = ensurePdfSpace(doc, y, 6, page);
+    doc.text(`• ${feature}`, page.margin + 2, y);
+    y += 5;
+  }
+
+  y += 3;
+  y = ensurePdfSpace(doc, y, 14, page);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(17, 24, 39);
+  doc.text("Stack Teknologi", page.margin, y);
+  y += 5;
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(55, 65, 81);
+  y = addWrappedText(doc, project.stack.join(" · "), page.margin, y, page.width - page.margin * 2, 5);
+
+  y += 8;
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(17, 24, 39);
+  doc.text("Dokumentasi Gambar", page.margin, y);
+  y += 7;
+
+  if (!project.images.length) {
+    y = ensurePdfSpace(doc, y, 22, page);
+    doc.setFillColor(249, 250, 251);
+    doc.setDrawColor(209, 213, 219);
+    doc.roundedRect(page.margin, y, page.width - page.margin * 2, 22, 3, 3, "FD");
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(17, 24, 39);
+    doc.text("Dokumentasi visual belum tersedia", page.margin + 5, y + 8);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(107, 114, 128);
+    doc.text("Project ini tetap dicantumkan sebagai ringkasan pengalaman dan fitur utama.", page.margin + 5, y + 15);
+    addFooter(doc, page);
+    return;
+  }
+
+  for (let i = 0; i < project.images.length; i++) {
+    const item = project.images[i];
+    y = await addImageBlockToPdf(doc, item, i + 1, y, page);
+  }
+
+  addFooter(doc, page);
+}
+
+async function addImageBlockToPdf(doc, item, number, y, page) {
+  const maxWidth = page.width - page.margin * 2;
+  const maxHeight = 74;
+  const captionHeight = 18;
+  const blockPadding = 4;
+  const needed = maxHeight + captionHeight + blockPadding + 10;
+  y = ensurePdfSpace(doc, y, needed, page);
+
+  const image = await loadImageForPdf(item.src);
+  if (!image) {
+    doc.setFillColor(249, 250, 251);
+    doc.setDrawColor(229, 231, 235);
+    doc.roundedRect(page.margin, y, maxWidth, 28, 3, 3, "FD");
+    doc.setTextColor(185, 28, 28);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text(`Gambar tidak ditemukan: ${item.src}`, page.margin + 4, y + 10);
+    return y + 34;
+  }
+
+  const ratio = image.width / image.height;
+  let imgW = maxWidth;
+  let imgH = imgW / ratio;
+  if (imgH > maxHeight) {
+    imgH = maxHeight;
+    imgW = imgH * ratio;
+  }
+  const imgX = page.margin + (maxWidth - imgW) / 2;
+
+  doc.setFillColor(249, 250, 251);
+  doc.setDrawColor(229, 231, 235);
+  doc.roundedRect(page.margin, y, maxWidth, imgH + captionHeight + blockPadding, 3, 3, "S");
+
+  const imageFormat = getImageFormat(item.src);
+  doc.addImage(image, imageFormat, imgX, y + 3, imgW, imgH);
+
+  let cy = y + imgH + 10;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9.2);
+  doc.setTextColor(17, 24, 39);
+  doc.text(`${number}. ${item.title}`, page.margin + 4, cy);
+
+  cy += 5;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8.5);
+  doc.setTextColor(75, 85, 99);
+  const lines = doc.splitTextToSize(item.desc, maxWidth - 8);
+  doc.text(lines.slice(0, 2), page.margin + 4, cy);
+
+  return y + imgH + captionHeight + blockPadding + 8;
+}
+
+function ensurePdfSpace(doc, y, needed, page) {
+  if (y + needed <= page.height - page.margin - 10) return y;
+  addFooter(doc, page);
+  doc.addPage();
+  return page.margin;
+}
+
+function addWrappedText(doc, text, x, y, width, lineHeight) {
+  const lines = doc.splitTextToSize(String(text ?? ""), width);
+  doc.text(lines, x, y);
+  return y + lines.length * lineHeight;
+}
+
+function addFooter(doc, page) {
+  const pageNumber = doc.internal.getNumberOfPages();
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(156, 163, 175);
+  doc.text(`Portofolio Ikbal Yuliyanto · Halaman ${pageNumber}`, page.margin, page.height - 8);
+}
+
+function loadImageForPdf(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = encodeURI(src);
+  });
+}
+
+function getImageFormat(src) {
+  const lower = String(src).toLowerCase();
+  if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "JPEG";
+  if (lower.endsWith(".webp")) return "WEBP";
+  return "PNG";
 }
 
 function formatWebsite(url) {
